@@ -328,12 +328,16 @@ locals {
                   #     "${key}: ${value}"
                   # ])}"
                   # value  = yamlencode(var.ingress.annotations)
-                  value     = jsonencode([
+                  # value     = jsonencode([
+                  #   for key, value in var.ingress.annotations:
+                  #     {
+                  #       name  = key,
+                  #       value = value
+                  #     }
+                  # ])
+                  value = "\"join("\",\"", [
                     for key, value in var.ingress.annotations:
-                      {
-                        name  = key,
-                        value = value
-                      }
+                      "${key}: ${value}"
                   ])
                 }
               ]
