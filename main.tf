@@ -428,56 +428,6 @@ resource "helm_release" "chartmuseum" {
     value       = var.image_tag
   }
 
-  set_string {
-    name        = "persistence.accessMode"
-    value       = var.persistence_access_mode
-  }
-
-  set {
-    name        = "persistence.enabled"
-    value       = var.persistence_enabled
-  }
-
-  set_string {
-    name        = "persistence.size"
-    value       = var.persistence_size
-  }
-
-  set {
-    name        = "persistence.labels"
-    value       = "${join(",", var.persistence_labels)}"
-  }
-
-  set {
-    name        = "persistence.pv.enabled"
-    value       = var.persistence_pv_enabled
-  }
-
-  set_string {
-    name        = "persistence.pv.capacity.storage"
-    value       = var.persistence_pv_capacity_storage
-  }
-
-  set_string {
-    name        = "persistence.pv.accessMode"
-    value       = var.persistence_pv_access_mode
-  }
-
-  set_string {
-    name        = "persistence.pv.nfs.server"
-    value       = var.persistence_pv_nfs_server
-  }
-
-  set_string {
-    name        = "persistence.pv.nfs.path"
-    value       = var.persistence_pv_nfs_path
-  }
-
-  set_string {
-    name        = "persistence.pv.pvname"
-    value       = var.persistence_pv_pvname
-  }
-
   set {
     name        = "replicaCount"
     value       = var.replica_count
