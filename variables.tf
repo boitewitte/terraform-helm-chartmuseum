@@ -3,6 +3,12 @@ variable "name" {
   description = "Release Name"
 }
 
+variable "namespace" {
+  type        = string
+  description = "Kubernetes namespace"
+  default     = "default"
+}
+
 variable "image_pull_policy" {
   type        = string
   description = "Container Pull Policy"

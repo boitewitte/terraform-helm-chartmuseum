@@ -361,6 +361,7 @@ locals {
             ]
         ])
       )
+      : []
   )
 
   ingress_sensitive = (
@@ -409,6 +410,8 @@ resource "helm_release" "chartmuseum" {
   name        = var.name
   repository  = data.helm_repository.kubernetes_charts.metadata.0.name
   chart       = "stable/chartmuseum"
+
+  namespace   = var.namespace
 
   set_string  {
     name        = "image.pullPolicy"
