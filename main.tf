@@ -328,22 +328,22 @@ locals {
           : [],
         var.ingress.hosts != null
           ? flatten([
-            for index, host in var.ingress.hosts:
-              [
-                {
-                  name  = "ingress.hosts[${index}].name",
-                  value = host.name
-                },
-                {
-                  name  = "ingress.hosts[${index}].path",
-                  value = host.path
-                },
-                {
-                  name  = "ingress.hosts[${index}].tls",
-                  value = host.tls_secret != null
-                }
-              ]
-          ])
+              for index, host in var.ingress.hosts:
+                [
+                  {
+                    name  = "ingress.hosts[${index}].name",
+                    value = host.name
+                  },
+                  {
+                    name  = "ingress.hosts[${index}].path",
+                    value = host.path
+                  },
+                  {
+                    name  = "ingress.hosts[${index}].tls",
+                    value = host.tls_secret != null
+                  }
+                ]
+            ])
           : [],
         var.ingress.extra_paths != null
           ? flatten([
