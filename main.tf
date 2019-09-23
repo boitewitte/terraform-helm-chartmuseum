@@ -323,7 +323,10 @@ locals {
                   # value   = "${join(",", [
                   #   for key, value in var.ingress.annotations:
                   #     "${key}: ${value}"
-                  value   = "${jsonencode(var.ingress.annotations)}"
+                  value   = "${jsonencode([
+                    for key, value in var.ingress.annotations:
+                      "${key}: ${value}"
+                  ])}"
                 }
               ]
               : []
