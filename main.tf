@@ -320,10 +320,11 @@ locals {
               ? [
                 {
                   name    = "ingress.annotations",
-                  value   = join(",", [
-                    for key, value in var.ingress.annotations:
-                      "${key}: ${value}"
-                  ])
+                  # value   = "${join(",", [
+                  #   for key, value in var.ingress.annotations:
+                  #     "${key}: ${value}"
+                  value   = jsonencode(var.ingress.annotations)
+                  ])}"
                 }
               ]
               : []
