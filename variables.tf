@@ -15,7 +15,7 @@ variable "image_pull_policy" {
   default     = "IfNotPresent"
 }
 
-variable "image_respository" {
+variable "image_repository" {
   type        = string
   description = "Container image to use"
   default     = "chartmuseum/chartmuseum"
