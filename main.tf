@@ -314,13 +314,13 @@ locals {
             value     = true
           }
         ],
-        var.ingress.annotations != null && length(var.ingress.annotations) > 0
+        var.ingress.annotations != null
           ? [{
               name      = "ingress.annotations",
               value     = var.ingress.annotations
             }]
           : [],
-        var.ingress.labels != null && length(var.ingress.labels) > 0
+        var.ingress.labels != null
           ? [{
               name      = "ingress.labels",
               value     = var.ingress.labels
