@@ -314,13 +314,13 @@ locals {
             value     = true
           }
         ],
-        length(var.ingress.annotations) > 0
+        var.ingress.annotations != null && length(var.ingress.annotations) > 0
           ? [{
               name      = "ingress.annotations",
               value     = var.ingress.annotations
             }]
           : [],
-        length(var.ingress.labels) > 0
+        var.ingress.labels != null && length(var.ingress.labels) > 0
           ? [{
               name      = "ingress.labels",
               value     = var.ingress.labels
@@ -343,23 +343,25 @@ locals {
               }
             ]
         ]),
-        flatten([
-          for index, path in var.ingress.extra_paths:
-            [
-              {
-                name  = "ingress.extraPaths[${index}].path",
-                value = path.path
-              },
-              {
-                name  = "ingress.extraPaths[${index}].service",
-                value = path.service
-              },
-              {
-                name  = "ingress.extraPaths[${index}].port",
-                value = path.port != null
-              }
-            ]
-        ])
+        var.ingress.extra_paths != null
+          ? flatten([
+            for index, path in var.ingress.extra_paths:
+              [
+                {
+                  name  = "ingress.extraPaths[${index}].path",
+                  value = path.path
+                },
+                {
+                  name  = "ingress.extraPaths[${index}].service",
+                  value = path.service
+                },
+                {
+                  name  = "ingress.extraPaths[${index}].port",
+                  value = path.port != null
+                }
+              ]
+          ])
+          : []
       )
       : []
   )
