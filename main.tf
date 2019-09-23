@@ -445,7 +445,7 @@ resource "helm_release" "chartmuseum" {
 
   set {
     name        = "persistence.labels"
-    value       = var.persistence_labels
+    value       = "${join(",", var.persistence_labels)}"
   }
 
   set {
