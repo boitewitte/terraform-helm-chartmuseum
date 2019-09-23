@@ -327,6 +327,7 @@ variable "ingress" {
         port        = string
       })
     )
+  })
   description = "Ingress Controller configuration"
   default     = null
 }
