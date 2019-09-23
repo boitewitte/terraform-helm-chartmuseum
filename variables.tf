@@ -331,3 +331,9 @@ variable "ingress" {
   description = "Ingress Controller configuration"
   default     = null
 }
+
+variable "service_type" {
+  type        = string
+  description = "Kubernetes Service type"
+  default     = "ClusterIP"
+}

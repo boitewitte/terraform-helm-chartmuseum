@@ -495,6 +495,11 @@ resource "helm_release" "chartmuseum" {
     value       = var.allow_overwrite
   }
 
+  set {
+    name        = "service.type"
+    value       = var.service_type
+  }
+
   dynamic "set" {
     for_each = local.set
 
