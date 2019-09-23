@@ -327,8 +327,7 @@ locals {
             }]
           : [],
         var.ingress.hosts == null
-          ? []
-          : flatten([
+          ? flatten([
               for index, host in var.ingress.hosts:
                 [
                   {
@@ -344,7 +343,8 @@ locals {
                     value = host.tls_secret != null
                   }
                 ]
-            ]),
+            ])
+          : [],
         var.ingress.extra_paths != null
           ? flatten([
             for index, path in var.ingress.extra_paths:
