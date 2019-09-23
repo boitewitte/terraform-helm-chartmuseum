@@ -314,19 +314,21 @@ locals {
             value     = true
           }
         ],
-        var.ingress.annotations != null
+        (var.ingress.annotations != null
           ? [{
               name      = "ingress.annotations",
               value     = var.ingress.annotations
             }]
-          : [],
-        var.ingress.labels != null
+          : []
+        ),
+        (var.ingress.labels != null
           ? [{
               name      = "ingress.labels",
               value     = var.ingress.labels
             }]
-          : [],
-        var.ingress.hosts == null
+          : []
+        ),
+        (var.ingress.hosts != null
           ? flatten([
               for index, host in var.ingress.hosts:
                 [
@@ -344,8 +346,9 @@ locals {
                   }
                 ]
             ])
-          : [],
-        var.ingress.extra_paths != null
+          : []
+        ),
+        (var.ingress.extra_paths != null
           ? flatten([
             for index, path in var.ingress.extra_paths:
               [
@@ -364,6 +367,7 @@ locals {
               ]
           ])
           : []
+        )
       )
       : []
   )
