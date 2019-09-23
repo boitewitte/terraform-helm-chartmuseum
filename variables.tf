@@ -311,7 +311,7 @@ variable "gcp_service_account" {
 
 variable "ingress" {
   type        = object({
-    annotations = list(string),
+    annotations = map(string),
     labels      = list(string)
     hosts       = list(
       object({

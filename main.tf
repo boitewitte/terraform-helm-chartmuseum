@@ -308,69 +308,95 @@ locals {
 
   ingress = (
     var.ingress != null
-      ? concat([
-          {
-            name      = "ingress.enabled",
-            value     = true
-          }
-        ],
-        (var.ingress.annotations != null
-          ? [{
-              name      = "ingress.annotations",
-              value     = var.ingress.annotations
-            }]
-          : []
-        ),
-        (var.ingress.labels != null
-          ? [{
-              name      = "ingress.labels",
-              value     = var.ingress.labels
-            }]
-          : []
-        ),
-        (var.ingress.hosts != null
-          ? flatten([
-              for index, host in var.ingress.hosts:
-                [
-                  {
-                    name  = "ingress.hosts[${index}].name",
-                    value = host.name
-                  },
-                  {
-                    name  = "ingress.hosts[${index}].path",
-                    value = host.path
-                  },
-                  {
-                    name  = "ingress.hosts[${index}].tls",
-                    value = host.tls_secret != null
-                  }
-                ]
-            ])
-          : []
-        ),
-        (var.ingress.extra_paths != null
-          ? flatten([
-            for index, path in var.ingress.extra_paths:
-              [
+      ? concat(
+          [
+            {
+              name      = "ingress.enabled",
+              value     = true
+            }
+          ],
+          (
+            var.ingress.annotations != null
+              ? [
                 {
-                  name  = "ingress.extraPaths[${index}].path",
-                  value = path.path
-                },
-                {
-                  name  = "ingress.extraPaths[${index}].service",
-                  value = path.service
-                },
-                {
-                  name  = "ingress.extraPaths[${index}].port",
-                  value = path.port != null
+                  name    = "ingress.annotations",
+                  value   = join(",", [
+                    for key, value in var.ingress.annotations:
+                      "${key}: ${value}"
+                  ])
                 }
               ]
-          ])
-          : []
+              : []
+          )
         )
-      )
       : []
   )
+
+  # ingress = (
+  #   var.ingress != null
+  #     ? concat([
+  #         {
+  #           name      = "ingress.enabled",
+  #           value     = true
+  #         }
+  #       ],
+  #       (var.ingress.annotations != null
+  #         ? [{
+  #             name      = "ingress.annotations",
+  #             value     = var.ingress.annotations
+  #           }]
+  #         : []
+  #       ),
+  #       (var.ingress.labels != null
+  #         ? [{
+  #             name      = "ingress.labels",
+  #             value     = var.ingress.labels
+  #           }]
+  #         : []
+  #       ),
+  #       (var.ingress.hosts != null
+  #         ? flatten([
+  #             for index, host in var.ingress.hosts:
+  #               [
+  #                 {
+  #                   name  = "ingress.hosts[${index}].name",
+  #                   value = host.name
+  #                 },
+  #                 {
+  #                   name  = "ingress.hosts[${index}].path",
+  #                   value = host.path
+  #                 },
+  #                 {
+  #                   name  = "ingress.hosts[${index}].tls",
+  #                   value = host.tls_secret != null
+  #                 }
+  #               ]
+  #           ])
+  #         : []
+  #       ),
+  #       (var.ingress.extra_paths != null
+  #         ? flatten([
+  #           for index, path in var.ingress.extra_paths:
+  #             [
+  #               {
+  #                 name  = "ingress.extraPaths[${index}].path",
+  #                 value = path.path
+  #               },
+  #               {
+  #                 name  = "ingress.extraPaths[${index}].service",
+  #                 value = path.service
+  #               },
+  #               {
+  #                 name  = "ingress.extraPaths[${index}].port",
+  #                 value = path.port != null
+  #               }
+  #             ]
+  #         ])
+  #         : []
+  #       )
+  #     )
+  #     : []
+  # )
 
   ingress_sensitive = (
     var.ingress != null && var.ingress.hosts != null
