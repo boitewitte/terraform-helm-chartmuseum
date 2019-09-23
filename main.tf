@@ -266,7 +266,7 @@ locals {
   )
 
   basic_auth = (
-    var.basic_auth == null
+    var.basic_auth != null
       ? [
         {
           name      = "env.secret.BASIC_AUTH_USER",
@@ -277,7 +277,7 @@ locals {
   )
 
   basic_auth_sensitive = (
-    var.basic_auth == null
+    var.basic_auth != null
       ? [
         {
           name      = "env.secret.BASIC_AUTH_PASS",
