@@ -335,10 +335,10 @@ locals {
                   #       value = value
                   #     }
                   # ])
-                  value = "\"${join("\", \"", [
+                  value = "${join(", ", [
                     for key, value in var.ingress.annotations:
-                      "${key}: ${value}"
-                  ])}\""
+                      "\"${key}\": \"${value}\""
+                  ])}
                 }
               ]
               : []
