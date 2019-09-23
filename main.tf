@@ -373,7 +373,7 @@ locals {
   )
 
   ingress_sensitive = (
-    var.ingress != null
+    var.ingress != null && var.ingress.hosts != null
       ? [
           for index, host in var.ingress.hosts:
             {
